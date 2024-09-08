@@ -11,7 +11,7 @@ type EasyZoomOnMovePropsType = {
     delayTimer?: number;
 
     loadingIndicator?: React.ReactNode;
-    mainImage: {
+    image: {
         width?: number;
         height?: number;
         src: string;
@@ -32,7 +32,7 @@ type ImageDimensionType = {
 
 const EasyZoomOnMove = (props: EasyZoomOnMovePropsType) => {
 
-    const { mainImage, zoomImage, loadingIndicator, delayTimer } = props;
+    const { image, zoomImage, loadingIndicator, delayTimer } = props;
     const [isImageLoaded, setIsImageLoaded] = React.useState(false);
     const { createZoomImage: createZoomImageMove } = useZoomImageMove();
     const imageMoveContainerRef = React.useRef<HTMLDivElement>(null)
@@ -72,14 +72,14 @@ const EasyZoomOnMove = (props: EasyZoomOnMovePropsType) => {
         <>
             {!isImageLoaded && (loadingIndicator ??
                 <EasySkeleton
-                    height={props.mainImage.height ?? 450}
-                    width={props.mainImage.width ?? 450}
+                    height={props.image.height ?? 450}
+                    width={props.image.width ?? 450}
                 />
             )}
             <div ref={imageMoveContainerRef} className="EasyImageZoomOnMoveContainer"
                 style={{
-                    position: "relative", maxHeight: mainImage.height ?? imageDimension?.height ?? "auto",
-                    maxWidth: mainImage.width ?? imageDimension?.width, overflow: "hidden",
+                    position: "relative", maxHeight: image.height ?? imageDimension?.height ?? "auto",
+                    maxWidth: image.width ?? imageDimension?.width, overflow: "hidden",
                     cursor: "crosshair",
                     display: isImageLoaded ? "block" : "none",
                 }}
@@ -87,7 +87,7 @@ const EasyZoomOnMove = (props: EasyZoomOnMovePropsType) => {
                 <img className='EasyImageZoomOnMoveImage'
                     onLoad={handleImageLoad} ref={imgRef as React.RefObject<HTMLImageElement>}
                     style={{ width: "full", height: "full" }}
-                    alt={mainImage.alt ?? "Large Pic"} src={mainImage.src} />
+                    alt={image.alt ?? "Large Pic"} src={image.src} />
             </div>
 
         </>
